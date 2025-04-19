@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transactions - Personal Finance Dashboard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js"></script>
+    <style>
+        .bg-primary { background-color: #00674b; }
+        .text-primary { color: #00674b; }
+        .border-primary { border-color: #00674b; }
+        .card-shadow { box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05); }
+        .header-shadow { box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04); }
+        .active-nav-item { border-left: 4px solid #00674b; background-color: rgba(0, 103, 75, 0.1); }
+        .bg-content { background-color: #F9F6F0; }
+        .hover-sidebar:hover { background-color: rgba(255, 255, 255, 0.1); }
+        .transaction-row:hover { background-color: rgba(0, 103, 75, 0.05); }
+    </style>
+</head>
+<body class="font-sans">
+    <div class="flex h-screen">
+        <!-- Sidebar - #00674b -->
+        <div class="w-64 bg-primary shadow-md text-white">
+            <div class="p-4 flex items-center space-x-2">
+                <div class="w-10 h-10 bg-white rounded-lg flex items-center justify-center">
+                    <i class="fas fa-wallet text-primary"></i>
+                </div>
+                <div>
+                    <h1 class="font-bold text-lg">FinTrack</h1>
+                    <p class="text-xs text-gray-200">Personal Finance</p>
+                </div>
+            </div>
+            
+            <div class="mt-8">
+                <ul>
+                    <li class="px-4 py-3 hover-sidebar">
+                        <a href="finance-dashboard.html" class="flex items-center text-white hover:text-gray-200">
+                            <i class="fas fa-home w-6"></i>
+                            <span>Dashboard</span>
+                        </a>
+                    </li>
+                    <li class="px-4 py-3 active-nav-item">
+                        <a href="#" class="flex items-center text-white font-medium">
+                            <i class="fas fa-exchange-alt w-6"></i>
+                            <span>Transactions</span>
+                        </a>
+                    </li>
+                    <li class="px-4 py-3 hover-sidebar">
+                        <a href="budget.html" class="flex items-center text-white hover:text-gray-200">
+                            <i class="fas fa-chart-pie w-6"></i>
+                            <span>Budget</span>
+                        </a>
+                    </li>
+                    <li class="px-4 py-3 hover-sidebar">
+                        <a href="investment-page.html" class="flex items-center text-white hover:text-gray-200">
+                            <i class="fas fa-money-bill-wave w-6"></i>
+                            <span>Investments</span>
+                        </a>
+                    </li>
+                    <li class="px-4 py-3 hover-sidebar">
+                        <a href="accounts-section.html" class="flex items-center text-white hover:text-gray-200">
+                            <i class="fas fa-credit-card w-6"></i>
+                            <span>Accounts</span>
+                        </a>
+                    </li>
+                    <li class="px-4 py-3 hover-sidebar">
+                        <a href="reports-section.html" class="flex items-center text-white hover:text-gray-200">
+                            <i class="fas fa-file-invoice-dollar w-6"></i>
+                            <span>Reports</span>
+                        </a>
+                    </li>
+                    <li class="px-4 py-3 hover-sidebar">
+                        <a href="settings.html" class="flex items-center text-white hover:text-gray-200">
+                            <i class="fas fa-cog w-6"></i>
+                            <span>Settings</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            
+            <div class="mt-auto p-4 border-t border-opacity-20 border-white">
+                <div class="flex items-center space-x-2">
+                    <div class="w-10 h-10 rounded-full bg-white flex items-center justify-center">
+                        <i class="fas fa-user text-primary"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-medium text-sm">Nandini Yadav</h3>
+                        <p class="text-xs text-gray-200">nany17074@gmail.com</p>
+                    </div>
+                    <button class="ml-auto text-white hover:text-gray-200" title="email">
+                        <i class="fas fa-sign-out-alt"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Main Content - #F9F6F0 -->
+        <div class="flex-1 flex flex-col overflow-hidden bg-content">
+            <!-- Header -->
+            <header class="bg-white header-shadow p-4 flex items-center justify-between">
+                <div>
+                    <h2 class="text-lg font-semibold">Transactions</h2>
+                    <p class="text-sm text-gray-500">View and manage all your transaction history</p>
+                </div>
+                
+                <div class="flex items-center space-x-4">
+                    <div class="relative">
+                        <input type="text" placeholder="Search transactions..." class="pl-8 pr-3 py-2 rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent">
+                        <i class="fas fa-search absolute left-3 top-3 text-gray-400"></i>
+                    </div>
+                    
+                    <button class="relative bg-gray-100 p-2 rounded-full">
+                        <i class="fas fa-bell text-gray-600"></i>
+                        <span class="absolute top-0 right-0 bg-red-500 text-white text-xs w-4 h-4 rounded-full flex items-center justify-center">3</span>
+                    </button>
+                </div>
+            </header>
+            
+            <!-- Main Transaction Content -->
+            <main class="flex-1 overflow-y-auto p-6">
+                <!-- Transaction Filters -->
+                <div class="bg-white rounded-lg p-4 mb-6 card-shadow">
+                    <div class="flex flex-wrap items-center justify-between">
+                        <div class="flex space-x-4 mb-4 sm:mb-0">
+                            <div>
+                                <label class="block text-xs text-gray-500 mb-1">Date Range</label>
+                                <select class="px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-primary" title="date range">
+                                    <option>Last 30 days</option>
+                                    <option>This month</option>
+                                    <option>Last month</option>
+                                    <option>Last 3 months</option>
+                                    <option>Custom range</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-xs text-gray-500 mb-1">Category</label>
+                                <select class="px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-primary" title="category">
+                                    <option>All Categories</option>
+                                    <option>Housing</option>
+                                    <option>Food & Drinks</option>
+                                    <option>Transportation</option>
+                                    <option>Shopping</option>
+                                    <option>Entertainment</option>
+                                    <option>Income</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-xs text-gray-500 mb-1">Account</label>
+                                <select class="px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-primary" title="account">
+                                    <option>All Accounts</option>
+                                    <option>Checking Account</option>
+                                    <option>Savings Account</option>
+                                    <option>Credit Card</option>
+                                    <option>Investment Account</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="flex space-x-2">
+                            <button class="px-4 py-2 bg-gray-100 text-gray-600 rounded-md hover:bg-gray-200">
+                                <i class="fas fa-filter mr-1"></i> Reset Filters
+                            </button>
+                            <button class="px-4 py-2 bg-primary text-white rounded-md hover:bg-opacity-90">
+                                <i class="fas fa-download mr-1"></i> Export
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Transaction Summary -->
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-6">
+                    <div class="bg-white rounded-lg p-4 card-shadow">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="text-gray-500 text-sm">Total Transactions</p>
+                                <h3 class="text-2xl font-bold mt-1">257</h3>
+                            </div>
+                            <div class="w-10 h-10 rounded-full bg-primary bg-opacity-20 flex items-center justify-center">
+                                <i class="fas fa-exchange-alt text-primary"></i>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-white rounded-lg p-4 card-shadow">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="text-gray-500 text-sm">Total Income</p>
+                                <h3 class="text-2xl font-bold mt-1">₹70,000.00</h3>
+                            </div>
+                            <div class="w-10 h-10 rounded-full bg-green-100 flex items-center justify-center">
+                                <i class="fas fa-arrow-down text-green-500"></i>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-white rounded-lg p-4 card-shadow">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="text-gray-500 text-sm">Total Expenses</p>
+                                <h3 class="text-2xl font-bold mt-1">₹37,000.77</h3>
+                            </div>
+                            <div class="w-10 h-10 rounded-full bg-red-100 flex items-center justify-center">
+                                <i class="fas fa-arrow-up text-red-500"></i>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-white rounded-lg p-4 card-shadow">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="text-gray-500 text-sm">Total Savings</p>
+                                <h3 class="text-2xl font-bold mt-1">₹32,999.23</h3>
+                            </div>
+                            <div class="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center">
+                                <i class="fas fa-chart-line text-blue-500"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Transaction List -->
+                <div class="bg-white rounded-lg card-shadow overflow-hidden">
+                    <div class="p-4 border-b border-gray-100 flex justify-between items-center">
+                        <h3 class="font-semibold">Transaction History</h3>
+                        
+                        <div class="flex items-center">
+                            <div class="mr-4">
+                                <span class="text-sm text-gray-500">Showing 20 of 257 transactions</span>
+                            </div>
+                            <button class="p-1 px-2 border rounded mr-1 text-gray-500 hover:bg-gray-50" title="close">
+                                <i class="fas fa-chevron-left"></i>
+                            </button>
+                            <button class="p-1 px-2 border rounded text-gray-500 hover:bg-gray-50" title="close">
+                                <i class="fas fa-chevron-right"></i>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="overflow-x-auto">
+                        <table class="w-full">
+                            <thead>
+                                <tr class="text-left bg-gray-50">
+                                    <th class="px-4 py-3 text-xs font-medium text-gray-500">Date</th>
+                                    <th class="px-4 py-3 text-xs font-medium text-gray-500">Description</th>
+                                    <th class="px-4 py-3 text-xs font-medium text-gray-500">Category</th>
+                                    <th class="px-4 py-3 text-xs font-medium text-gray-500">Account</th>
+                                    <th class="px-4 py-3 text-xs font-medium text-gray-500">Amount</th>
+                                    <th class="px-4 py-3 text-xs font-medium text-gray-500">Status</th>
+                                    <th class="px-4 py-3 text-xs font-medium text-gray-500">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="border-b transaction-row cursor-pointer" onclick="showTransactionDetails(1)">
+                                    <td class="px-4 py-3 text-sm">Apr 12, 2025</td>
+                                    <td class="px-4 py-3">
+                                        <div class="flex items-center">
+                                            <div class="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center mr-3">
+                                                <i class="fas fa-shopping-bag text-blue-500 text-xs"></i>
+                                            </div>
+                                            <div>
+                                                <p class="font-medium text-sm">Amazon</p>
+                                                <p class="text-xs text-gray-500">Office supplies</p>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="px-4 py-3 text-sm">Shopping</td>
+                                    <td class="px-4 py-3 text-sm">Credit Card</td>
+                                    <td class="px-4 py-3 text-sm font-medium text-red-500">786.45 Dr</td>
+                                    <td class="px-4 py-3">
+                                        <span class="px-2 py-1 text-xs bg-green-100 text-green-700 rounded-full">Completed</span>
+                                    </td>
+                                    <td class="px-4 py-3">
+                                        <div class="flex space-x-2">
+                                            <button class="p-1 text-gray-500 hover:text-primary" title="Edit">
+                                                <i class="fas fa-edit"></i>
+                                            </button>
+                                            <button class="p-1 text-gray-500 hover:text-primary" title="Add Note">
+                                                <i class="fas fa-sticky-note"></i>
+                                            </button>
+                                            <button class="p-1 text-gray-500 hover:text-red-500" title="Delete">
+                                                <i class="fas fa-trash-alt"></i>
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr class="border-b transaction-row cursor-pointer" onclick="showTransactionDetails(2)">
+                                    <td class="px-4 py-3 text-sm">Apr 11, 2025</td>
+                                    <td class="px-4 py-3">
+                                        <div class="flex items-center">
+                                            <div class="w-8 h-8 rounded-full bg-green-100 flex items-center justify-center mr-3">
+                                                <i class="fas fa-utensils text-green-500 text-xs"></i>
+                                            </div>
+                                            <div>
+                                                <p class="font-medium text-sm">Starbucks</p>
+                                                <p class="text-xs text-gray-500">Coffee Shop</p>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="px-4 py-3 text-sm">Food & Drinks</td>
+                                    <td class="px-4 py-3 text-sm">Checking Account</td>
+                                    <td class="px-4 py-3 text-sm font-medium text-red-500">567.45 Dr</td>
+                                    <td class="px-4 py-3">
+                                        <span class="px-2 py-1 text-xs bg-green-100 text-green-700 rounded-full">Completed</span>
+                                    </td>
+                                    <td class="px-4 py-3">
+                                        <div class="flex space-x-2">
+                                            <button class="p-1 text-gray-500 hover:text-primary" title="Edit">
+                                                <i class="fas fa-edit"></i>
+                                            </button>
+                                            <button class="p-1 text-gray-500 hover:text-primary" title="Add Note">
+                                                <i class="fas fa-sticky-note"></i>
+                                            </button>
+                                            <button class="p-1 text-gray-500 hover:text-red-500" title="Delete">
+                                                <i class="fas fa-trash-alt"></i>
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr class="border-b transaction-row cursor-pointer" onclick="showTransactionDetails(3)">
+                                    <td class="px-4 py-3 text-sm">Apr 10, 2025</td>
+                                    <td class="px-4 py-3">
+                                        <div class="flex items-center">
+                                            <div class="w-8 h-8 rounded-full bg-purple-100 flex items-center justify-center mr-3">
+                                                <i class="fas fa-building text-purple-500 text-xs"></i>
+                                            </div>
+                                            <div>
+                                                <p class="font-medium text-sm">Rent Payment</p>
+                                                <p class="text-xs text-gray-500">Housing</p>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="px-4 py-3 text-sm">Housing</td>
+                                    <td class="px-4 py-3 text-sm">Checking Account</td>
+                                    <td class="px-4 py-3 text-sm font-medium text-red-500">30,000.00 Dr</td>
+                                    <td class="px-4 py-3">
+                                        <span class="px-2 py-1 text-xs bg-green-100 text-green-700 rounded-full">Completed</span>
+                                    </td>
+                                    <td class="px-4 py-3">
+                                        <div class="flex space-x-2">
+                                            <button class="p-1 text-gray-500 hover:text-primary" title="Edit">
+                                                <i class="fas fa-edit"></i>
+                                            </button>
+                                            <button class="p-1 text-gray-500 hover:text-primary" title="Add Note">
+                                                <i class="fas fa-sticky-note"></i>
+                                            </button>
+                                            <button class="p-1 text-gray-500 hover:text-red-500" title="Delete">
+                                                <i class="fas fa-trash-alt"></i>
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr class="border-b transaction-row cursor-pointer" onclick="showTransactionDetails(4)">
+                                    <td class="px-4 py-3 text-sm">Apr 8, 2025</td>
+                                    <td class="px-4 py-3">
+                                        <div class="flex items-center">
+                                            <div class="w-8 h-8 rounded-full bg-red-100 flex items-center justify-center mr-3">
+                                                <i class="fas fa-bolt text-red-500 text-xs"></i>
+                                            </div>
+                                            <div>
+                                                <p class="font-medium text-sm">Electric Bill</p>
+                                                <p class="text-xs text-gray-500">Utility</p>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="px-4 py-3 text-sm">Utilities</td>
+                                    <td class="px-4 py-3 text-sm">Checking Account</td>
+                                    <td class="px-4 py-3 text-sm font-medium text-red-500">5,000 Dr</td>
+                                    <td class="px-4 py-3">
+                                        <span class="px-2 py-1 text-xs bg-green-100 text-green-700 rounded-full">Completed</span>
+                                    </td>
+                                    <td class="px-4 py-3">
+                                        <div class="flex space-x-2">
+                                            <button class="p-1 text-gray-500 hover:text-primary" title="Edit">
+                                                <i class="fas fa-edit"></i>
+                                            </button>
+                                            <button class="p-1 text-gray-500 hover:text-primary" title="Add Note">
+                                                <i class="fas fa-sticky-note"></i>
+                                            </button>
+                                            <button class="p-1 text-gray-500 hover:text-red-500" title="Delete">
+                                                <i class="fas fa-trash-alt"></i>
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr class="border-b transaction-row cursor-pointer" onclick="showTransactionDetails(5)">
+                                    <td class="px-4 py-3 text-sm">Apr 5, 2025</td>
+                                    <td class="px-4 py-3">
+                                        <div class="flex items-center">
+                                            <div class="w-8 h-8 rounded-full bg-yellow-100 flex items-center justify-center mr-3">
+                                                <i class="fas fa-money-bill-wave text-yellow-500 text-xs"></i>
+                                            </div>
+                                            <div>
+                                                <p class="font-medium text-sm">Salary</p>
+                                                <p class="text-xs text-gray-500">Monthly Income</p>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="px-4 py-3 text-sm">Income</td>
+                                    <td class="px-4 py-3 text-sm">Checking Account</td>
+                                    <td class="px-4 py-3 text-sm font-medium text-green-500">70,000 Cr</td>
+                                    <td class="px-4 py-3">
+                                        <span class="px-2 py-1 text-xs bg-green-100 text-green-700 rounded-full">Completed</span>
+                                    </td>
+                                    <td class="px-4 py-3">
+                                        <div class="flex space-x-2">
+                                            <button class="p-1 text-gray-500 hover:text-primary" title="Edit">
+                                                <i class="fas fa-edit"></i>
+                                            </button>
+                                            <button class="p-1 text-gray-500 hover:text-primary" title="Add Note">
+                                                <i class="fas fa-sticky-note"></i>
+                                            </button>
+                                            <button class="p-1 text-gray-500 hover:text-red-500" title="Delete">
+                                                <i class="fas fa-trash-alt"></i>
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr class="border-b transaction-row cursor-pointer" onclick="showTransactionDetails(6)">
+                                    <td class="px-4 py-3 text-sm">Apr 3, 2025</td>
+                                    <td class="px-4 py-3">
+                                        <div class="flex items-center">
+                                            <div class="w-8 h-8 rounded-full bg-red-100 flex items-center justify-center mr-3">
+                                                <i class="fas fa-car text-red-500 text-xs"></i>
+                                            </div>
+                                            <div>
+                                                <p class="font-medium text-sm">Car Insurance</p>
+                                                <p class="text-xs text-gray-500">Insurance</p>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="px-4 py-3 text-sm">Transport</td>
+                                    <td class="px-4 py-3 text-sm">Credit Card</td>
+                                    <td class="px-4 py-3 text-sm font-medium text-red-500">12,000 Dr</td>
+                                    <td class="px-4 py-3">
+                                        <span class="px-2 py-1 text-xs bg-green-100 text-green-700 rounded-full">Completed</span>
+                                    </td>
+                                    <td class="px-4 py-3">
+                                        <div class="flex space-x-2">
+                                            <button class="p-1 text-gray-500 hover:text-primary" title="Edit">
+                                                <i class="fas fa-edit"></i>
+                                            </button>
+                                            <button class="p-1 text-gray-500 hover:text-primary" title="Add Note">
+                                                <i class="fas fa-sticky-note"></i>
+                                            </button>
+                                            <button class="p-1 text-gray-500 hover:text-red-500" title="Delete">
+                                                <i class="fas fa-trash-alt"></i>
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr class="border-b transaction-row cursor-pointer" onclick="showTransactionDetails(7)">
+                                    <td class="px-4 py-3 text-sm">Apr 2, 2025</td>
+                                    <td class="px-4 py-3">
+                                        <div class="flex items-center">
+                                            <div class="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center mr-3">
+                                                <i class="fas fa-shopping-cart text-blue-500 text-xs"></i>
+                                            </div>
+                                            <div>
+                                                <p class="font-medium text-sm">Whole Foods</p>
+                                                <p class="text-xs text-gray-500">Groceries</p>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="px-4 py-3 text-sm">Food & Drinks</td>
+                                    <td class="px-4 py-3 text-sm">Credit Card</td>
+                                    <td class="px-4 py-3 text-sm font-medium text-red-500">1,900 Dr</td>
+                                    <td class="px-4 py-3">
+                                        <span class="px-2 py-1 text-xs bg-green-100 text-green-700 rounded-full">Completed</span>
+                                    </td>
+                                    <td class="px-4 py-3">
+                                        <div class="flex space-x-2">
+                                            <button class="p-1 text-gray-500 hover:text-primary" title="Edit">
+                                                <i class="fas fa-edit"></i>
+                                            </button>
+                                            <button class="p-1 text-gray-500 hover:text-primary" title="Add Note">
+                                                <i class="fas fa-sticky-note"></i>
+                                            </button>
+                                            <button class="p-1 text-gray-500 hover:text-red-500" title="Delete">
+                                                <i class="fas fa-trash-alt"></i>
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+    
+    <!-- Transaction Details Modal -->
+    <div id="transactionModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden z-50">
+        <div class="bg-white rounded-lg w-full max-w-2xl">
+            <div class="p-4 border-b flex justify-between items-center">
+                <h3 class="font-semibold text-lg" id="modalTitle">Transaction Details</h3>
+                <button onclick="closeTransactionDetails()" class="text-gray-500 hover:text-gray-700" type="button" title="closeTransactionDetails">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            
+            <div class="p-6">
+                <div class="flex items-center">
+                    <!-- Content goes here -->
+                    <p>Sample transaction content</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    </body>
+</html>

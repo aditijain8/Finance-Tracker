@@ -1,0 +1,103 @@
+/* Add to your existing styles */
+:root {
+    --primary: #00674b;
+    --primary-light: #e6f2ef;
+    --secondary: #4a6fa5;
+    --accent: #ff7e5f;
+    --success: #4caf50;
+    --warning: #ff9800;
+    --danger: #f44336;
+    --dark: #2d3748;
+    --light: #f8f9fa;
+  }
+  
+  .bg-primary { background-color: var(--primary); }
+  .text-primary { color: var(--primary); }
+  .border-primary { border-color: var(--primary); }
+
+  /* Modern card design */
+.card {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+  }
+  
+  .card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Gradient accent for cards */
+  .card-accent {
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .card-accent::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 4px;
+    height: 100%;
+    background: linear-gradient(to bottom, var(--primary), #00a876);
+  }
+
+  /* Primary button */
+.btn {
+    padding: 0.5rem 1.25rem;
+    border-radius: 8px;
+    font-weight: 500;
+    transition: all 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .btn-primary {
+    background-color: var(--primary);
+    color: white;
+  }
+  
+  .btn-primary:hover {
+    background-color: #005a40;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0, 103, 75, 0.2);
+  }
+  
+  /* Secondary button */
+  .btn-secondary {
+    background-color: white;
+    color: var(--primary);
+    border: 1px solid var(--primary);
+  }
+  
+  .btn-secondary:hover {
+    background-color: var(--primary-light);
+  }
+
+
+  /* Chart containers */
+.chart-container {
+    background: white;
+    border-radius: 12px;
+    padding: 1.5rem;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+  }
+  
+  /* Progress bars */
+  .progress-bar {
+    height: 8px;
+    border-radius: 4px;
+    background-color: #e9ecef;
+    overflow: hidden;
+  }
+  
+  .progress-fill {
+    height: 100%;
+    border-radius: 4px;
+    background: linear-gradient(to right, var(--primary), #00a876);
+    transition: width 0.6s ease;
+  }

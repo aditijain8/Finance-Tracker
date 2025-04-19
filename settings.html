@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings - Personal Finance Dashboard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        .bg-primary { background-color: #00674b; }
+        .text-primary { color: #00674b; }
+        .border-primary { border-color: #00674b; }
+        .card-shadow { box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05); }
+        .header-shadow { box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04); }
+        .active-nav-item { border-left: 4px solid #00674b; background-color: rgba(0, 103, 75, 0.1); }
+        .bg-content { background-color: #F9F6F0; }
+        .hover-sidebar:hover { background-color: rgba(255, 255, 255, 0.1); }
+        
+        .toggle-checkbox:checked {
+            right: 0;
+            border-color: #00674b;
+        }
+        .toggle-checkbox:checked + .toggle-label {
+            background-color: #00674b;
+        }
+    </style>
+</head>
+<body class="font-sans">
+    <div class="flex h-screen">
+        <!-- Sidebar - Now #00674b -->
+        <div class="w-64 bg-primary shadow-md text-white">
+            <div class="p-4 flex items-center space-x-2">
+                <div class="w-10 h-10 bg-white rounded-lg flex items-center justify-center">
+                    <i class="fas fa-wallet text-primary"></i>
+                </div>
+                <div>
+                    <h1 class="font-bold text-lg">FinTrack</h1>
+                    <p class="text-xs text-gray-200">Personal Finance</p>
+                </div>
+            </div>
+            
+            <div class="mt-8">
+                <ul>
+                    <li class="px-4 py-3 hover-sidebar">
+                        <a href="finance-dashboard.html" class="flex items-center text-white hover:text-gray-200">
+                            <i class="fas fa-home w-6"></i>
+                            <span>Dashboard</span>
+                        </a>
+                    </li>
+                    <li class="px-4 py-3 hover-sidebar">
+                        <a href="transactions-page.html" class="flex items-center text-white hover:text-gray-200">
+                            <i class="fas fa-exchange-alt w-6"></i>
+                            <span>Transactions</span>
+                        </a>
+                    </li>
+                    <li class="px-4 py-3 hover-sidebar">
+                        <a href="budget.html" class="flex items-center text-white hover:text-gray-200">
+                            <i class="fas fa-chart-pie w-6"></i>
+                            <span>Budget</span>
+                        </a>
+                    </li>
+                    <li class="px-4 py-3 hover-sidebar">
+                        <a href="investment-page.html" class="flex items-center text-white hover:text-gray-200">
+                            <i class="fas fa-money-bill-wave w-6"></i>
+                            <span>Investments</span>
+                        </a>
+                    </li>
+                    <li class="px-4 py-3 hover-sidebar">
+                        <a href="accounts-section.html" class="flex items-center text-white hover:text-gray-200">
+                            <i class="fas fa-credit-card w-6"></i>
+                            <span>Accounts</span>
+                        </a>
+                    </li>
+                    <li class="px-4 py-3 hover-sidebar">
+                        <a href="reports-section.html" class="flex items-center text-white hover:text-gray-200">
+                            <i class="fas fa-file-invoice-dollar w-6"></i>
+                            <span>Reports</span>
+                        </a>
+                    </li>
+                    <li class="px-4 py-3 active-nav-item">
+                        <a href="settings.html" class="flex items-center text-white font-medium">
+                            <i class="fas fa-cog w-6"></i>
+                            <span>Settings</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            
+            <div class="mt-auto p-4 border-t border-opacity-20 border-white">
+                <div class="flex items-center space-x-2">
+                    <div class="w-10 h-10 rounded-full bg-white flex items-center justify-center">
+                        <i class="fas fa-user text-primary"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-medium text-sm">John Doe</h3>
+                        <p class="text-xs text-gray-200">john.doe@example.com</p>
+                    </div>
+                    <button class="ml-auto text-white hover:text-gray-200" title="settings">
+                        <i class="fas fa-sign-out-alt"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Main Content - Now #F9F6F0 -->
+        <div class="flex-1 flex flex-col overflow-hidden bg-content">
+            <!-- Header -->
+            <header class="bg-white header-shadow p-4 flex items-center justify-between">
+                <div>
+                    <h2 class="text-lg font-semibold">Settings</h2>
+                    <p class="text-sm text-gray-500">Customize your FinTrack experience</p>
+                </div>
+                
+                <div class="flex items-center space-x-4">
+                    <div class="relative">
+                        <input type="text" placeholder="Search..." class="pl-8 pr-3 py-2 rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent">
+                        <i class="fas fa-search absolute left-3 top-3 text-gray-400"></i>
+                    </div>
+                    
+                    <button class="relative bg-gray-100 p-2 rounded-full">
+                        <i class="fas fa-bell text-gray-600"></i>
+                        <span class="absolute top-0 right-0 bg-red-500 text-white text-xs w-4 h-4 rounded-full flex items-center justify-center">3</span>
+                    </button>
+                </div>
+            </header>
+            
+            <!-- Settings Content -->
+            <main class="flex-1 overflow-y-auto p-6">
+                <!-- Settings Navigation -->
+                <div class="flex mb-6 border-b">
+                    <button class="px-4 py-2 text-primary border-b-2 border-primary font-medium">Account</button>
+                    <button class="px-4 py-2 text-gray-500 hover:text-gray-700">Preferences</button>
+                    <button class="px-4 py-2 text-gray-500 hover:text-gray-700">Security</button>
+                    <button class="px-4 py-2 text-gray-500 hover:text-gray-700">Notifications</button>
+                    <button class="px-4 py-2 text-gray-500 hover:text-gray-700">Connected Accounts</button>
+                    <button class="px-4 py-2 text-gray-500 hover:text-gray-700">Data Management</button>
+                </div>
+                
+                <!-- Account Settings Section -->
+                <div class="grid grid-cols-3 gap-6">
+                    <!-- Left Column - Profile -->
+                    <div class="col-span-1">
+                        <div class="bg-white rounded-lg p-6 card-shadow mb-6">
+                            <h3 class="font-semibold mb-4">Profile Information</h3>
+                            
+                            <div class="flex flex-col items-center mb-6">
+                                <div class="relative mb-4">
+                                    <div class="w-24 h-24 rounded-full bg-gray-200 flex items-center justify-center overflow-hidden border-4 border-white">
+                                        <i class="fas fa-user text-gray-400 text-4xl"></i>
+                                    </div>
+                                    <button class="absolute bottom-0 right-0 bg-primary p-2 rounded-full text-white"  title="settings">
+                                        <i class="fas fa-camera"></i>
+                                    </button>
+                                </div>
+                                <h4 class="font-medium text-lg">John Doe</h4>
+                                <p class="text-gray-500 text-sm">Member since April 2024</p>
+                            </div>
+                            
+                            <div class="space-y-4">
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-600 mb-1">Full Name</label>
+                                    <input type="text" value="John Doe" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent" title="settings">
+                                </div>
+                                
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-600 mb-1">Email Address</label>
+                                    <input type="email" value="john.doe@example.com" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent" title="settings">
+                                </div>
+                                
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-600 mb-1">Phone Number</label>
+                                    <input type="tel" value="(555) 123-4567" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent" title="settings">
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-white rounded-lg p-6 card-shadow">
+                            <h3 class="font-semibold mb-4">Delete Account</h3>
+                            <p class="text-sm text-gray-600 mb-4">Once you delete your account, there is no going back. Please be certain.</p>
+                            <button class="px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600">Delete Account</button>
+                        </div>
+                    </div>
+                    
+                    <!-- Right Column - Preferences -->
+                    <div class="col-span-2">
+                        <div class="bg-white rounded-lg p-6 card-shadow mb-6">
+                            <h3 class="font-semibold mb-4">Financial Preferences</h3>
+                            
+                            <div class="space-y-4">
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-600 mb-1">Default Currency</label>
+                                    <select class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent" title="settings">
+                                        <option selected>USD - US Dollar ($)</option>
+                                        <option>EUR - Euro (€)</option>
+                                        <option>GBP - British Pound (£)</option>
+                                        <option>JPY - Japanese Yen (¥)</option>
+                                        <option>CAD - Canadian Dollar ($)</option>
+                                    </select>
+                                </div>
+                                
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-600 mb-1">Date Format</label>
+                                    <div class="grid grid-cols-3 gap-4">
+                                        <div class="border border-gray-300 rounded-md p-3 flex items-center hover:border-primary cursor-pointer">
+                                            <input type="radio" name="dateFormat" id="mmddyyyy" class="mr-2" checked>
+                                            <label for="mmddyyyy" class="text-sm">MM/DD/YYYY</label>
+                                        </div>
+                                        <div class="border border-gray-300 rounded-md p-3 flex items-center hover:border-primary cursor-pointer">
+                                            <input type="radio" name="dateFormat" id="ddmmyyyy" class="mr-2">
+                                            <label for="ddmmyyyy" class="text-sm">DD/MM/YYYY</label>
+                                        </div>
+                                        <div class="border border-gray-300 rounded-md p-3 flex items-center hover:border-primary cursor-pointer">
+                                            <input type="radio" name="dateFormat" id="yyyymmdd" class="mr-2">
+                                            <label for="yyyymmdd" class="text-sm">YYYY/MM/DD</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-600 mb-1">First Day of Week</label>
+                                    <div class="grid grid-cols-2 gap-4">
+                                        <div class="border border-gray-300 rounded-md p-3 flex items-center hover:border-primary cursor-pointer">
+                                            <input type="radio" name="weekStart" id="sunday" class="mr-2" checked>
+                                            <label for="sunday" class="text-sm">Sunday</label>
+                                        </div>
+                                        <div class="border border-gray-300 rounded-md p-3 flex items-center hover:border-primary cursor-pointer">
+                                            <input type="radio" name="weekStart" id="monday" class="mr-2">
+                                            <label for="monday" class="text-sm">Monday</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-white rounded-lg p-6 card-shadow mb-6">
+                            <h3 class="font-semibold mb-4">Notification Settings</h3>
+                            
+                            <div class="space-y-4">
+                                <div class="flex items-center justify-between">
+                                    <div>
+                                        <h4 class="font-medium">Low Balance Alerts</h4>
+                                        <p class="text-sm text-gray-500">Get notified when your account balance falls below a set threshold</p>
+                                    </div>
+                                    <div class="relative inline-block w-12 align-middle select-none"> title="settings"
+                                        <input type="checkbox" name="toggle" id="lowBalance" class="toggle-checkbox absolute block w-6 h-6 rounded-full bg-white border-4 appearance-none cursor-pointer right-0" title="settings" checked/>
+                                        <label for="lowBalance" class="toggle-label block overflow-hidden h-6 rounded-full bg-gray-300 cursor-pointer"></label>
+                                    </div>
+                                </div>
+                                
+                                <div class="flex items-center justify-between">
+                                    <div>
+                                        <h4 class="font-medium">Bill Payment Reminders</h4>
+                                        <p class="text-sm text-gray-500">Receive reminders before bills are due</p>
+                                    </div>
+                                    <div class="relative inline-block w-12 align-middle select-none">
+                                        <input type="checkbox" name="toggle" id="billReminders" class="toggle-checkbox absolute block w-6 h-6 rounded-full bg-white border-4 appearance-none cursor-pointer"  title="settings"checked/>
+                                        <label for="billReminders" class="toggle-label block overflow-hidden h-6 rounded-full bg-gray-300 cursor-pointer"></label>
+                                    </div>
+                                </div>
+                                
+                                <div class="flex items-center justify-between">
+                                    <div>
+                                        <h4 class="font-medium">Unusual Activity Alerts</h4>
+                                        <p class="text-sm text-gray-500">Get notified about suspicious transactions</p>
+                                    </div>
+                                    <div class="relative inline-block w-12 align-middle select-none">
+                                        <input type="checkbox" name="toggle" id="unusualActivity" class="toggle-checkbox absolute block w-6 h-6 rounded-full bg-white border-4 appearance-none cursor-pointer"  title="settings"checked/>
+                                        <label for="unusualActivity" class="toggle-label block overflow-hidden h-6 rounded-full bg-gray-300 cursor-pointer"></label>
+                                    </div>
+                                </div>
+                                
+                                <div class="flex items-center justify-between">
+                                    <div>
+                                        <h4 class="font-medium">Weekly Summary</h4>
+                                        <p class="text-sm text-gray-500">Receive a weekly summary of your financial activity</p>
+                                    </div>
+                                    <div class="relative inline-block w-12 align-middle select-none">
+                                        <input type="checkbox" name="toggle" id="weeklySummary" class="toggle-checkbox absolute block w-6 h-6 rounded-full bg-white border-4 appearance-none cursor-pointer" title="settings"/>
+                                        <label for="weeklySummary" class="toggle-label block overflow-hidden h-6 rounded-full bg-gray-300 cursor-pointer"></label>
+                                    </div>
+                                </div>
+                                
+                                <div class="flex items-center justify-between">
+                                    <div>
+                                        <h4 class="font-medium">Budget Alerts</h4>
+                                        <p class="text-sm text-gray-500">Get notified when you're close to exceeding your budget</p>
+                                    </div>
+                                    <div class="relative inline-block w-12 align-middle select-none">
+                                        <input type="checkbox" name="toggle" id="budgetAlerts" class="toggle-checkbox absolute block w-6 h-6 rounded-full bg-white border-4 appearance-none cursor-pointer"  title="settings" checked/>
+                                        <label for="budgetAlerts" class="toggle-label block overflow-hidden h-6 rounded-full bg-gray-300 cursor-pointer"></label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-white rounded-lg p-6 card-shadow">
+                            <h3 class="font-semibold mb-4">Appearance</h3>
+                            
+                            <div class="space-y-4">
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-600 mb-2">Color Theme</label>
+                                    <div class="flex space-x-4">
+                                        <div class="flex flex-col items-center">
+                                            <div class="w-10 h-10 rounded-full bg-primary mb-2 border-2 border-blue-500"></div>
+                                            <span class="text-sm">Default</span>
+                                        </div>
+                                        <div class="flex flex-col items-center">
+                                            <div class="w-10 h-10 rounded-full bg-blue-600 mb-2"></div>
+                                            <span class="text-sm">Blue</span>
+                                        </div>
+                                        <div class="flex flex-col items-center">
+                                            <div class="w-10 h-10 rounded-full bg-purple-600 mb-2"></div>
+                                            <span class="text-sm">Purple</span>
+                                        </div>
+                                        <div class="flex flex-col items-center">
+                                            <div class="w-10 h-10 rounded-full bg-red-600 mb-2"></div>
+                                            <span class="text-sm">Red</span>
+                                        </div>
+                                        <div class="flex flex-col items-center">
+                                            <div class="w-10 h-10 rounded-full bg-gray-800 mb-2"></div>
+                                            <span class="text-sm">Dark</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-600 mb-2">Display Mode</label>
+                                    <div class="grid grid-cols-2 gap-4">
+                                        <div class="border border-gray-300 rounded-md p-3 flex items-center justify-center hover:border-primary cursor-pointer bg-white">
+                                            <input type="radio" name="displayMode" id="lightMode" class="mr-2" checked>
+                                            <label for="lightMode" class="text-sm">Light Mode</label>
+                                        </div>
+                                        <div class="border border-gray-300 rounded-md p-3 flex items-center justify-center hover:border-primary cursor-pointer bg-gray-800 text-white">
+                                            <input type="radio" name="displayMode" id="darkMode" class="mr-2">
+                                            <label for="darkMode" class="text-sm">Dark Mode</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Save Changes Button -->
+                <div class="flex justify-end mt-6">
+                    <button class="px-6 py-2 bg-primary text-white rounded-md hover:bg-opacity-90">Save Changes</button>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <!-- Add Account Modal -->
+<div id="addAccountModal" class="modal hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+    <div class="modal-content bg-white rounded-lg w-full max-w-md">
+      <div class="p-4 border-b flex justify-between items-center">
+        <h3 class="font-semibold text-lg">Add New Account</h3>
+        <button class="modal-close text-gray-500 hover:text-gray-700" title="settings">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+      
+      <div class="p-6">
+        <form id="addAccountForm">
+          <div class="mb-4">
+            <label class="block text-sm font-medium text-gray-600 mb-1">Account Type</label>
+            <select class="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-primary" title="settings">
+              <option>Checking Account</option>
+              <option>Savings Account</option>
+              <option>Credit Card</option>
+              <option>Investment Account</option>
+              <option>Loan</option>
+            </select>
+          </div>
+          
+          <div class="mb-4">
+            <label class="block text-sm font-medium text-gray-600 mb-1">Institution Name</label>
+            <input type="text" class="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-primary" placeholder="e.g. Bank of America">
+          </div>
+          
+          <div class="mb-4">
+            <label class="block text-sm font-medium text-gray-600 mb-1">Account Name</label>
+            <input type="text" class="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-primary" placeholder="e.g. Primary Checking">
+          </div>
+          
+          <div class="mb-4">
+            <label class="block text-sm font-medium text-gray-600 mb-1">Initial Balance</label>
+            <input type="number" step="0.01" class="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-primary" placeholder="0.00">
+          </div>
+          
+          <div class="flex justify-end space-x-3">
+            <button type="button" class="modal-close px-4 py-2 border border-gray-300 rounded-md hover:bg-gray-50">
+              Cancel
+            </button>
+            <button type="submit" class="px-4 py-2 bg-primary text-white rounded-md hover:bg-opacity-90">
+              Add Account
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Create Budget Modal -->
+  <div id="createBudgetModal" class="modal hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+    <div class="modal-content bg-white rounded-lg w-full max-w-md">
+      <div class="p-4 border-b flex justify-between items-center">
+        <h3 class="font-semibold text-lg">Create New Budget</h3>
+        <button class="modal-close text-gray-500 hover:text-gray-700" title="settings">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+      
+      <div class="p-6">
+        <form id="createBudgetForm">
+          <div class="mb-4">
+            <label class="block text-sm font-medium text-gray-600 mb-1">Budget Name</label>
+            <input type="text" class="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-primary" placeholder="e.g. Groceries">
+          </div>
+          
+          <div class="mb-4">
+            <label class="block text-sm font-medium text-gray-600 mb-1">Budget Category</label>
+            <select class="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-primary" title="settings">
+              <option>Food & Dining</option>
+              <option>Housing</option>
+              <option>Transportation</option>
+              <option>Entertainment</option>
+              <option>Utilities</option>
+              <option>Other</option>
+            </select>
+          </div>
+          
+          <div class="mb-4">
+            <label class="block text-sm font-medium text-gray-600 mb-1">Budget Amount</label>
+            <input type="number" step="0.01" class="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-primary" placeholder="0.00">
+          </div>
+          
+          <div class="mb-4">
+            <label class="block text-sm font-medium text-gray-600 mb-1">Budget Period</label>
+            <select class="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-primary" title="settings">
+              <option>Monthly</option>
+              <option>Weekly</option>
+              <option>Bi-Weekly</option>
+              <option>Quarterly</option>
+              <option>Yearly</option>
+            </select>
+          </div>
+          
+          <div class="flex justify-end space-x-3">
+            <button type="button" class="modal-close px-4 py-2 border border-gray-300 rounded-md hover:bg-gray-50">
+              Cancel
+            </button>
+            <button type="submit" class="px-4 py-2 bg-primary text-white rounded-md hover:bg-opacity-90">
+              Create Budget
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Transaction Details Modal -->
+  <div id="transactionModal" class="modal hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+    <div class="modal-content bg-white rounded-lg w-full max-w-md">
+      <div class="p-4 border-b flex justify-between items-center">
+        <h3 class="font-semibold text-lg" id="modalTitle">Transaction Details</h3>
+        <button  title="settings"class="modal-close text-gray-500 hover:text-gray-700">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+      
+      <div class="p-6" id="modalContent">
+        <!-- Content will be dynamically inserted here -->
+      </div>
+    </div>
+  </div>
+  
+</body>
+</html>
